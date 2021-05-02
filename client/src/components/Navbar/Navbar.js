@@ -5,12 +5,12 @@ import * as actionType from '../../constants/actionTypes';
 import { useDispatch} from 'react-redux';
 import decode from 'jwt-decode';
 import {Link, useHistory, useLocation  } from "react-router-dom";
-import Paper from '@material-ui/core/Paper';
-import InputBase from '@material-ui/core/InputBase';
-import SearchIcon from '@material-ui/icons/Search';
+
+
 
 function Navbar() {
-    const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
+  
+   const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
     const classes=useStyles()
     const dispatch = useDispatch();
   const location = useLocation();
@@ -40,13 +40,10 @@ function Navbar() {
             <AppBar className={classes.appBar} position ="relative" >
                 <div className={classes.brandContainer}>
                 <Typography component ={Link} to ="/" className={classes.heading} variant="h2" align='center'><div className={classes.noor}>ACT</div>ivities</Typography>
-                
-
+                <Typography component ={Link} to ="/activites" className={classes.add}  variant="h6" align='center'>Ajouter une activitee
+                </Typography>
 </div>
-<div>
 
-
-</div>
 
 
 <Toolbar className={classes.toolbar}>
@@ -57,7 +54,7 @@ function Navbar() {
             <Button variant="contained" className={classes.logout} color="secondary" onClick={logout}>Logout</Button>
           </div>
         ):(
-            <Button component={Link} to="/auth"variant ="contained" color='primary'> register</Button>
+            <Button component={Link} to="/auth" variant ="contained" color='primary'> register</Button>
         )
         
         }

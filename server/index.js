@@ -3,7 +3,8 @@ import bodyParser from 'body-parser'
 import mongoose from 'mongoose'
 import cors from 'cors'
 import userRoutes from './routers/user.js'
-
+import activiteRoutes from './routers/activite.js'
+import HomeRoutes from './routers/getActivite.js'
 const app = express()
 app.use(bodyParser.json({limit:'30mb',extended :true}))
 app.use(bodyParser.urlencoded({limit:'30mb',extended :true}))//send properly our requests
@@ -16,7 +17,8 @@ connection.once('open',function(){
     console.log("MongoDb connection established  succesfully")
 })
 app.use('/user',userRoutes)
-
+app.use("/activite",activiteRoutes);
+app.use("/",HomeRoutes)
 
 
 

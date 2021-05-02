@@ -7,8 +7,8 @@ export default makeStyles((theme) =>
     
     marginTop: '-8px ',
     marginLeft:"-67px",
-    height:"80px",
-    width:"114%",
+    height:"70px",
+    width:"112%",
     backgroundColor:"coral",
     display: 'flex',
     flexDirection: 'row',
@@ -49,6 +49,27 @@ backgroundColor:"black",
     width: '300px',
     
   },
+  add:{
+    backgroundColor:'Black',
+marginLeft:'15px',
+color:"coral",
+fontSize:"24px",
+fontFamily:"'Homemade Apple', cursive;",
+marginTop:"50px",
+marginBottom:"50px",
+textDecoration:"none",
+paddingLeft:"10px",
+paddingRight:"10px",
+paddingBottom:"10px",
+paddingTop:"10px",
+"&:hover":{
+  //backgroundColor:"turquoise",
+  //color:"black",
+  borderRadius:"5px",
+  borderColor:"orange",
+  border:"3px solid",
+}
+  },
   userName: {
     display: 'flex',
     alignItems: 'center',
@@ -74,7 +95,7 @@ backgroundColor:"black",
     marginTop:"280%",
 
   
-  '& :hover':{
+  '&:hover':{
 
     opacity: "1",
  

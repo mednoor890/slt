@@ -1,12 +1,31 @@
 import React from 'react';
 import { Container } from '@material-ui/core';
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
-
+import styled from 'styled-components'
 import Navbar from './components/Navbar/Navbar';
 import Auth from './components/Auth/Auth';
-import Form from './components/Form/Form';
+
+import FormActivite from './components/Form/FormActivite';
+import Accueil from './components/Accueill/Accueil'
+/*import { Modal } from './components/Form/Modal';
+/import { useState } from 'react';*/
+/*const  Buttonn =styled.button`
+min-width:60px;
+padding:16px 32px;
+background:black;
+height:100%;
+margin-left:12px;
+color:coral;
+font-size:24px;
+
+cursor:pointer;
+fontFamily:"'Homemade Apple', cursive;"
+`*/
  function App() {
-    
+    /*const [ShowModal, setShowModal] = useState(true)
+  const openModal=()=>{
+    setShowModal(prev=>!prev)
+  }*/
              /*dispatch has access to currentState and reducer 
              . When dispatch is called, it receives an action object as an argument. 
              ... when an action is dispatched, or when we invoke dispatch and pass 
@@ -19,9 +38,12 @@ import Form from './components/Form/Form';
         <Container maxwidth="lg">
  
 <Navbar />
+
+
 <Switch>
+<Route path='/' exact component={ Accueil }/>
 <Route path='/auth' exact component={ Auth }/>
-    
+<Route path='/activites' exact component={ FormActivite }/>
 </Switch>
 
 

@@ -72,17 +72,6 @@ setFormData({...form,[e.target.name]:e.target.value})
             <Input name="Gender" label="Sexe"   handleChange={handleChange } fullWidth />
             <Input name="Cinteret" label="Categorie"  handleChange={handleChange } fullWidth />
             <Input name="Gouvernorat" label="Gouvernorat"  handleChange={handleChange } fullWidth />
-         
-
-
-  
-    
-  
-             
-         
-  
- 
-      
             </>
         )
     }
