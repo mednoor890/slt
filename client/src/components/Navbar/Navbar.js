@@ -18,7 +18,6 @@ function Navbar() {
   
     const logout = () => {
         dispatch({ type: actionType.LOGOUT });
-    
         history.push('/auth');
     
         setUser(null);
@@ -40,7 +39,11 @@ function Navbar() {
             <AppBar className={classes.appBar} position ="relative" >
                 <div className={classes.brandContainer}>
                 <Typography component ={Link} to ="/" className={classes.heading} variant="h2" align='center'><div className={classes.noor}>ACT</div>ivities</Typography>
-                <Typography component ={Link} to ="/activites" className={classes.add}  variant="h6" align='center'>Ajouter une activitee
+                <Typography component ={Link} to ="/activite" className={classes.add}  variant="h6" align='center'>Ajouter une activitee
+                </Typography>
+                <Typography component ={Link} to ="/association" className={classes.add}  variant="h6" align='center'>Ajouter une association
+                </Typography>
+                <Typography component ={Link} to ="/Listeassociation" className={classes.add}  variant="h6" align='center'>Les Associations
                 </Typography>
 </div>
 
@@ -49,12 +52,12 @@ function Navbar() {
 <Toolbar className={classes.toolbar}>
         {user?.result ? (
           <div className={classes.profile}>
-            <Avatar className={classes.purple} alt={user?.result.Nom} src={user?.result.selectedFile}>{user?.result.Nom.charAt(0)}</Avatar>
+            <Avatar className={classes.purple} alt={user?.result.Nom} src={user?.result.selectedFile} component={Link} to="/profil">{user?.result.Nom.charAt(0)}</Avatar>
             <Typography className={classes.userName} variant="h6">{user?.result.Nom}</Typography>
-            <Button variant="contained" className={classes.logout} color="secondary" onClick={logout}>Logout</Button>
+            <Button variant="contained" className={classes.logout} color="secondary" onClick={logout}>Deconnecter</Button>
           </div>
         ):(
-            <Button component={Link} to="/auth" variant ="contained" color='primary'> register</Button>
+            <Button component={Link} to="/auth" variant ="contained" color='primary'> s'inscrire</Button>
         )
         
         }

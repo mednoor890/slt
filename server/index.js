@@ -4,21 +4,25 @@ import mongoose from 'mongoose'
 import cors from 'cors'
 import userRoutes from './routers/user.js'
 import activiteRoutes from './routers/activite.js'
-import HomeRoutes from './routers/getActivite.js'
+import associationRoutes from './routers/association.js'
+
+
 const app = express()
 app.use(bodyParser.json({limit:'30mb',extended :true}))
 app.use(bodyParser.urlencoded({limit:'30mb',extended :true}))//send properly our requests
 app.use(cors())
 mongoose.connect('mongodb://127.0.0.1:27017/pfe',{useNewUrlParser:true,useCreateIndex:true,
 useUnifiedTopology:true,
-useFindAndModify:true})
+useFindAndModify:false})
 const connection = mongoose.connection
 connection.once('open',function(){
     console.log("MongoDb connection established  succesfully")
 })
 app.use('/user',userRoutes)
 app.use("/activite",activiteRoutes);
-app.use("/",HomeRoutes)
+app.use("/association",associationRoutes)
+
+
 
 
 

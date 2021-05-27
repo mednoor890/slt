@@ -3,17 +3,72 @@ import { Avatar,Button, Paper,Grid, Typography, Container,TextField,MenuItem} fr
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
-import useStyles from './styles'
 import  Input  from "./Input"
-import Radio from"./Radio"
 import FileBase from 'react-file-base64';
-import Select1 from "./Select"
+import styled ,{keyframes}from 'styled-components'
 //import  CustomizedHook from "./MultipleSelect";
 import { signin, signup } from '../../actions/auth';
-import Autocomplete from '@material-ui/lab/Autocomplete';
-import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
-import CheckBoxIcon from '@material-ui/icons/CheckBox';
-import Checkbox from '@material-ui/core/Checkbox';
+
+const Sandouk=styled.div`
+width:100%;
+height:100%;
+background-color:pink;
+
+}`
+const Wrapper=styled.div`
+
+width:40%;
+background: #B47DD8;
+background: -webkit-linear-gradient(top left, pink 0%, #3F51B5 100%);
+background: -moz-linear-gradient(top left, hotpink 80%, grey 100%);
+background: -o-linear-gradient(top left, hotpink 0%, #3F51B5 100%);
+background: linear-gradient(to bottom right,#3F51B5 0%, hotpink 100%);
+
+border : groove 4px; 
+border-radius:66px;
+border-color:pink;
+margin-top:80px;
+margin-left:29%;
+`
+const Form=styled.form`
+width:90%;
+padding:24px;
+
+`
+const Tipography=styled.h6`
+margin-left:40%;
+margin-top:-53px;
+margin-bottom:19px;
+font-size:30px;
+`
+const FormButton=styled.button`
+display: block;
+width: 60%;
+padding: 12px 0;
+font-family: inherit;
+font-size: 14px;
+font-weight: 700;
+color: white  ;
+background-color:grey ;
+border: 2px groove;
+border-color:#FFFFF0;
+
+box-shadow: 0 10px 10px rgba(100, 100, 100, 0.9);
+cursor: pointer;
+transition: all 0.25s cubic-bezier(0.02, 0.01, 0.47, 1);
+margin-left:60px;
+margin-bottom:12px;
+margin-top:20px;
+&:hover {
+  box-shadow: 0 15px 15px rgba(50, 70, 80, 0.9);
+  transform: translateX(0, -5px);
+  background-color:rgb(63,81,181)  ;
+  font-size:22px;
+color:black ;
+}
+`
+
+
 
 const initialState={Nom:"",Prenom:"", Age:"", Gouvernorat:"",Gender:"",Cinteret:"",Email:"",  Password:"",confirmPassword:"",selectedFile:""}
 /*const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
@@ -23,7 +78,7 @@ function Auth() {
   const [isSignup, setIsSignup] = useState(true);
   const dispatch = useDispatch();
   const history = useHistory()
-  const classes = useStyles();
+  
 
   const [ShowPassword, setShowPassword] = useState(false);
   const handleShowPassword = () => setShowPassword((prevShowPassword)=>!prevShowPassword)
@@ -51,20 +106,23 @@ setFormData({...form,[e.target.name]:e.target.value})
         }
        
          return (
-       
-        
-            <Container component="main" maxWidth="xs">
-    <Paper className={classes.paper} elevation={3}>
-    <Avatar className={classes.avatar}>
+
+        <Wrapper >
+         
+          <Tipography  component="h1" variant='h6' >{ isSignup ? "inscription" : "connexion"} </Tipography>
+          
+    <Avatar style={{marginLeft:"235px",marginTop:"36px",marginBottom:"15px",backgroundColor:"pink"}}>
         <LockOutlinedIcon />
-    </Avatar>
-    <Typography  component="h1" variant='h6' >{ isSignup ? "inscription" : "connexion"} </Typography>
-    <form className={classes.form} onSubmit={handleSubmit}>
+    </Avatar >
+    
+    <Form  onSubmit={handleSubmit}>
+    
         <Grid container spacing={2}>
+          
     {
         isSignup &&(
             <>
-            
+           
             <Input name="Nom" label="Nom" handleChange={handleChange} fullWidth ></Input>
             <Input name="Prenom" label="Prenom" handleChange={handleChange}  fullWidth></Input>
             <Input name="Age" label="age" min="0" max="80" type="Number" handleChange={handleChange } fullWidth />
@@ -81,17 +139,20 @@ setFormData({...form,[e.target.name]:e.target.value})
            {isSignup && <Input name="confirmPassword" label="Confirmer mot de passe" handleChange={handleChange} type="password"/>}
     
         </Grid>
-        <Button type="submit" fullWidth variant="contained"  className={classes.submit}>{isSignup ?'Sign up':  "Sign in"}</Button>
+        <FormButton type="submit" fullWidth variant="contained"  >{isSignup ?'s inscrire':  "connecter"}</FormButton>
    
 
      <Grid container justify='flex-end'>
 <Grid item>
-    <Button onClick={switchMode}>{isSignup? "already have an account":"register"}</Button>
+    <FormButton onClick={switchMode}>{isSignup? "j'ai deja un compte":"inscrire"}</FormButton>
 </Grid>
+
    </Grid>
-    </form>
-    </Paper>
-</Container>
+    </Form>
+    
+  
+    </Wrapper>
+    
 )}
     
 /*const top100Films = [

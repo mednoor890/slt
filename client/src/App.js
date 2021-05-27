@@ -7,25 +7,13 @@ import Auth from './components/Auth/Auth';
 
 import FormActivite from './components/Form/FormActivite';
 import Accueil from './components/Accueill/Accueil'
-/*import { Modal } from './components/Form/Modal';
-/import { useState } from 'react';*/
-/*const  Buttonn =styled.button`
-min-width:60px;
-padding:16px 32px;
-background:black;
-height:100%;
-margin-left:12px;
-color:coral;
-font-size:24px;
+import Profil from './components/Profil/Profil';
+import FormAss from './components/Form1/FormAssociation';
+import ListeAssociations from './components/ListeAssociations/ListeAssociations';
+import PostDetails from './components/PostDetails/PostDetails';
 
-cursor:pointer;
-fontFamily:"'Homemade Apple', cursive;"
-`*/
  function App() {
-    /*const [ShowModal, setShowModal] = useState(true)
-  const openModal=()=>{
-    setShowModal(prev=>!prev)
-  }*/
+   
              /*dispatch has access to currentState and reducer 
              . When dispatch is called, it receives an action object as an argument. 
              ... when an action is dispatched, or when we invoke dispatch and pass 
@@ -43,7 +31,13 @@ fontFamily:"'Homemade Apple', cursive;"
 <Switch>
 <Route path='/' exact component={ Accueil }/>
 <Route path='/auth' exact component={ Auth }/>
-<Route path='/activites' exact component={ FormActivite }/>
+<Route path='/activite' exact component={ FormActivite }/>
+<Route path='/association' exact component={ FormAss }/>
+<Route path='/Listeassociation' exact component={ ListeAssociations }/>
+<Route path="/Listeassociation/:id" component={PostDetails} />
+
+<Route path='/profil' exact component={Profil}/>
+
 </Switch>
 
 

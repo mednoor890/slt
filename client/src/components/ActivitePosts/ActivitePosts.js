@@ -6,16 +6,15 @@ import ActivitePost from './ActivitePost/ActivitePost';
 
 
 const ActivitePosts = ({setCurrentId}) => {
-  const posts = useSelector((state) => state.posts);//useSelector accesses to store and more precisely the state   
-
+  const posts = useSelector((state) => state.posts);//useSelector accesses to store and more precisely the state 
+  
 return(
-  !posts.length ? <CircularProgress /> :
-( 
+  !posts.length ? <CircularProgress /> :( 
 <Grid container alignItems="center">
  {posts.map((post)=>(
- <Grid key={post._id} item >
+ <Grid key={post._id}  item >
  
-<ActivitePost post={post} setCurrentId={setCurrentId}/>
+<ActivitePost post={post}  setCurrentId={setCurrentId}/>
 </Grid>
 
  ))}

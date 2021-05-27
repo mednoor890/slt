@@ -1,13 +1,13 @@
 import React from 'react';
-import styled from 'styled-components'
-import {MdClose} from 'react-icons/md'
-import { useState } from 'react';
+import styled,{keyframes} from 'styled-components'
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import { useState,useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { createPost } from '../../actions/posts';
 import {  Button } from '@material-ui/core';
 import useStyles from './styles';
 import FileBase from 'react-file-base64';
-
 const Background=styled.div`
 width:100%;
 height:100%;
@@ -76,7 +76,61 @@ const Input = styled.input`
     color: black;
   }
 `;
-const Select = styled.select`
+ export const Wrapper=styled.div`
+width:105%;
+margin-top:80px;
+margin-left:-30px;
+height:50vh;
+background-color:#001111;
+opacity:0.9;
+border-radius:2px;
+display:flex;
+align-items:center;
+`
+export const textAnimation=keyframes`
+0%
+{
+  transform: scale( .75 );
+  color:white
+}
+20%
+{
+  transform: scale( 1.1 );
+  color:orange;
+}
+40%
+{
+  transform: scale( .75 );
+ color:tomato;
+}
+60%
+{
+  transform: scale( 1.1 );
+  color:red;
+}
+80%
+{
+  transform: scale( .75 );
+  color:red;
+}
+100%
+{
+  transform: scale( .75 );
+  color:red;
+}
+}
+`
+export const Name=styled.h1`
+font-size:42px;
+text-align:center;
+padding:30px;
+border-radius:35px;
+animation-name:${textAnimation};
+animation-duration:10s;
+animation-iteration-count:infinite;
+font-family:font-family:"cursive";
+`
+export const Select = styled.select`
   width: 470px;
   height: 35px;
   background: whitesmoke;
@@ -100,20 +154,44 @@ const Select = styled.select`
     }
   }
 `
-
-const initState= { Titre:"",ageMin:"",ageMax:"",description:"" ,ville:"",tel:'',Categorie:"",isAssociative:"", Gouvernorat:"" ,Photo:"" }
-function FormActivite(){
+toast.configure()
+const initState= { Titre:"",ageMin:"",ageMax:"",description:"" ,ville:"",tel:'',categorie:"",isAssociation:"", Gouvernorat:"" ,Photo:"",DateDeroulement:"",createur:"" }
+function FormActivite({ currentId, setCurrentId }){
  
   const classes = useStyles();
- // const Form = ({ currentId, setCurrentId }) => {
+ // const Form = () => {
         const [postData, setPostData] = useState(initState);
-       //const post = useSelector((state) => (currentId ? state.posts.find((message) => message._id === currentId) : null));
-        const dispatch = useDispatch();
+        const user = JSON.parse(localStorage.getItem('profile'));
+
+       const post = useSelector((state) => (currentId ? state.posts.find((message) => message._id === currentId) : null));
+      useEffect(() => {
+        if (post) setPostData(post);
+      }, [post]);  
+      const dispatch = useDispatch();
         const handleSubmit1 = async (e) => {
             e.preventDefault();
+            //const isValid=formValidation()
               dispatch(createPost({...postData}));
           };
-         
+
+         const notify=()=>{
+           if((10<postData.ageMax)&&(postData.ageMax<100 )&&(6<postData.ageMin)&&(postData.ageMin<50)){
+           toast('activité ajouté avec succés')
+         }
+         else{
+         toast('veuillez valider tes donnees entree')
+        }}
+        if (!user?.result?.Nom) {
+          return (
+            <>
+            <Wrapper>
+              <Name variant="h6" align="center">
+                Pour creer des activites et plus de fonctionalites veuillez creer un compte ou connecter si vous avez deja un compte ⚠️⚠️
+              </Name>
+              </Wrapper>
+            </>
+          );
+        }
     return(
         <>
        
@@ -128,19 +206,21 @@ function FormActivite(){
 <Input type="text" name="description"  placeholder="decrire l'acitivité et ses detailles" value={postData.description} onChange={(e) => setPostData({ ...postData, description: e.target.value })}/>
 <Input type="text" name="ville" placeholder="sasir la ville ou adresse de deroulement" value={postData.ville} onChange={(e) => setPostData({ ...postData, ville: e.target.value })}/>
 <Input type="number" name="tel" placeholder=" saisir ton numero de telephone" value={postData.tel} onChange={(e) => setPostData({ ...postData, tel: e.target.value })}/>
-<Select name="Categorie">
+<Input type="" placeholder="saisir la date de ton activite" value={postData.DateDeroulement} onChange={(e) => setPostData({...postData,DateDeroulement: e.target.value})} />
+<Select name="categorie" value={postData.categorie} onChange={(e) => setPostData({ ...postData, categorie: e.target.value })}>
 <option value="" > Categorie</option>
 <option value="Sport" >Sport</option>
 <option value="Politique">Politique</option>
 <option value="Sante">Sante</option>
 <option value="culture">Culture</option>
          </Select>
-         <Select name="isAssociative">
+         <Select name="isAssociation" value={postData.isAssociation} onChange={(e) => setPostData({ ...postData, isAssociation: e.target.value })} >
 <option value=" ">Cadre de l'activite</option>
 <option value="associative ">Associative</option>
 <option value="personnelle">Personnelle</option>
          </Select>
-         <Select name="Gouvernorat">
+        
+         <Select name="Gouvernorat" value={postData.Gouvernorat} onChange={(e) => setPostData({ ...postData, Gouvernorat: e.target.value })} >
          <option value="">Gouvernorat</option>
          <option value="ariana ">Ariana</option>
          <option value="Beja ">Beja</option>
@@ -165,18 +245,17 @@ function FormActivite(){
          <option value="Tozeur ">Tozeur</option>
          <option value="Tunis ">Tunis</option>
          <option value="Zaghouan ">Zaghouan</option>
-         <option value="associative ">Associative</option>
-
+         
 
 
          </Select>
-
+          
          <FileBase placeholder="entrer une image correspendante" multiple={false} onDone={({ base64 }) => setPostData ({ ...postData,Photo: base64 })} />
 
 
 
 
-<Button className={classes.buttonSubmit} variant="contained"  size="large" type="submit" >Publier</Button>
+<Button className={classes.buttonSubmit} variant="contained" onClick={notify} size="large" type="submit" >Publier</Button>
 
 </ModalContent>
 
@@ -187,7 +266,7 @@ function FormActivite(){
 
         
         
-        
+
         </>
     )
 }
