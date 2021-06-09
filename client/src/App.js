@@ -1,17 +1,14 @@
 import React from 'react';
 import { Container } from '@material-ui/core';
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
-import styled from 'styled-components'
 import Navbar from './components/Navbar/Navbar';
 import Auth from './components/Auth/Auth';
-
 import FormActivite from './components/Form/FormActivite';
 import Accueil from './components/Accueill/Accueil'
 import Profil from './components/Profil/Profil';
 import FormAss from './components/Form1/FormAssociation';
 import ListeAssociations from './components/ListeAssociations/ListeAssociations';
 import PostDetails from './components/PostDetails/PostDetails';
-
  function App() {
    
              /*dispatch has access to currentState and reducer 

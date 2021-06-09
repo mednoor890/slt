@@ -1,5 +1,5 @@
 import * as api from "../api/index.js"
-import { FETCH_ASS,CREATEASS,FETCH_As,fetchPostsAS} from '../constants/actionTypes';
+import { FETCH_ASS,CREATEASS,FETCH_As,fetchPostsAS,LIKEASS} from '../constants/actionTypes';
 
 export const getPostAs =(id) => async (dispatch)=>{
     try {
@@ -31,3 +31,15 @@ try {
 
 
 }
+
+export const likePostASS = (id) => async (dispatch) => {
+    const user = JSON.parse(localStorage.getItem('profile'));
+  
+    try {
+      const { data } = await api.likePostASS(id, user?.token);
+  
+      dispatch({ type: LIKEASS, payload: data });
+    } catch (error) {
+      console.log(error);
+    }
+  };

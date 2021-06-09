@@ -1,5 +1,5 @@
 import * as api from "../api/index.js"
-import {  START_LOADING, END_LOADING, FETCH_ALL,  FETCH_BY_SEARCH, CREATE,  LIKE} from '../constants/actionTypes';
+import {  FILTER_ACTIVITY, FETCH_ALL, CREATE,  LIKE,DELETE} from '../constants/actionTypes';
 
   export const createPost = (post) => async (dispatch) => {
     try {
@@ -31,16 +31,18 @@ export const getPosts = () => async (dispatch) => {
 export const getPostsBySearch = (searchQuery) => async (dispatch) => {
   try {
    
-    const { data:{data} } = await api.fetchPostsBySearch(searchQuery);
-console.log(data)
+    const { data: { data } } = await api.fetchPostsBySearch(searchQuery);
+    dispatch({ type: FILTER_ACTIVITY, payload: data });
   } catch (error) {
     console.log(error);
   }
 };
-/*export const filterAssociation = (posts,isAssociation) => async (dispatch) => {
- 
-};
-*/
-  
+export const deletePost = (id) => async (dispatch) => {
+  try {
+    await await api.deletePost(id);
 
-  
+    dispatch({ type: DELETE, payload: id });
+  } catch (error) {
+    console.log(error);
+  }
+};

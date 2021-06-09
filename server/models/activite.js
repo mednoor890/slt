@@ -7,23 +7,25 @@ const activiteSchema = mongoose.Schema({
     ageMin:{type:Number, min:6, max:50},
     ageMax:{type:Number, min:10 ,max:100},
     description: String,
-    createur:{type:[mongoose.Schema.Types.ObjectId],ref:"user"},
+    name:String,
+    createur:String,
+    Avatar:String,
+    //createur:[{type:mongoose.Schema.Types.ObjectId,ref:"user"}],
     Gouvernorat :[String], /* gouvernorat*/
     ville :String,
     CreatedAt: {
-        type: Date,
-        default: new Date(),
+        type: Date
+        
     },
     
     Datederoulement:{
-        type: Date,
-        default: new Date(),
+        type: String,
+     
     },
+    temps: {type: String},
+    comments: [{ type: mongoose.Types.ObjectId, ref: 'avis' }],
+
     
-    commentaire:{
-        type:String,
-        default:""
-    },
     heartCount:{
         type:Number,
         default:0

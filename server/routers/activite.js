@@ -1,19 +1,19 @@
 import express from 'express';
 import auth from "../middleware/auth.js"
 const router = express.Router();
-import {  getPostsBySearch,createPost ,createComment,getPosts,getPost,getComment,likePost} from '../controllers/activite.js';
+import {  getPostsBySearch,createPost ,getPosts,getPost,likePost,deletePost} from '../controllers/activite.js';
 
-router.post("/",auth, createPost);
-router.post('/:id', createComment )
 router.get('/search', getPostsBySearch);
+router.post("/", createPost);
 router.get('/', getPosts);
 router.get('/:id', getPost);
-router.get('/:id', getComment)
-router.patch('/:id/likePost', likePost);
+router.patch('/:id/likePost',auth, likePost);
+router.delete('/:id', auth, deletePost);
+
 
 
 export default router;
 
 
 //router.delete('/:id', deletePost);
-//remember what pash do  it s for updating
+//remember what patch do  it s for updating

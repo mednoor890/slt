@@ -7,29 +7,6 @@ const secret = 'test';
 export const signup = async (req,res) =>{
     
   const { Nom,Prenom,Age,selectedFile,Gender,Gouvernorat,Cinteret,Email,Password,confirmPassword} =req.body;
-/*  const States =["beja",
-  "ariana",
-"ben arous",
-"bizerte",
-"gabes","gafsa",
-"jendouba",
-"kairouan",
-"kasserine",
-"kebili",
-"kef",
-"mahdia",
-"manouba",
-"medenine",
-"monastir","nabeul",
-"sfax",
-"sidi bouzid",
-"siliana",
-"tattaouine",
-"sousse",
-"tunis",
-"tozeur",
-"zaghouan",
-  ]*/
 
     try {
         const existingUser=await UserModal.findOne({ Email })
@@ -59,13 +36,22 @@ export const signin =async (req,res)=>{
     if   (!existingUser ) return res.status(404).json({message:"user not in the database"})
     const isPasswordCorrect =await bcrypt.compare(Password,existingUser.Password) 
 if(!isPasswordCorrect) return res.status(400).json({message:"invalide"})
-const token = jwt.sign({ Email: existingUser.Email,id: existingUser._id},secret,{expiresIn:"1h"})
+const token = jwt.sign({ Email: existingUser.Email,id: existingUser._id},secret,{expiresIn:"50h"})
 res.status(200).json({result:existingUser,token})   
 
 } catch (error) {
      res.status(500).json(error.message)
     }
 }
+export const getUsers= async (req, res) => { 
+    const { id } = req.params;
+
+    try {
+        const user = await UserModal.findById(id);
+        res.status(200).json(user);
+    } catch (error) {
+        res.status(404).json({ message: error.message });
+    }}
 /*import User from "../models/User.js"
 export const register= async(req,res,next)=>{
     //res.send("insicription route"

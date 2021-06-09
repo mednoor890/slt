@@ -118,10 +118,7 @@ function Profil() {
         <Image  alt={user?.result.Nom} src={user?.result.selectedFile}/>    
 
         </ImageWrapper>
-<ButtonWrapper>
-  <Button>suivre</Button><br/>
-  <Button2>unfollow</Button2>
-  </ButtonWrapper>                
+              
     
     
     

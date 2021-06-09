@@ -10,14 +10,14 @@ export default makeStyles((theme) =>
     marginLeft:"-67px",
     height:"63px",
     width:"112%",
-    backgroundColor:"royal",
+  
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: '10px 50px',
     position:"relative",
-  
+  boxShadow: "none"
 
   },
   heading: {
@@ -58,10 +58,10 @@ backgroundColor:"#FF69B4",
   add:{
     
 marginLeft:'15px',
-color:"pink",
+color:"black",
 textDecoration:"underline",
-fontSize:"16px",
-fontFamily:"'Homemade Apple', cursive;",
+fontSize:"20px",
+fontFamily:"'Brush Script MT'",
 marginTop:"50px",
 marginBottom:"50px",
 textDecoration:"none",
@@ -72,16 +72,17 @@ paddingTop:"10px",
 transform: "translateX(0px) scale(1)",
 
 "&:hover":{
-  boxShadow: "0 1px 1px 1px  rgba(255,255,255,0.1)",
-  color:"hotpink",
+  textShadow: "pink -2px 1px 1px",
+  fontSize:"25px",
+fontFamily:"Brush Script MT",
+  color:"black",
 overflow: "hidden",
-borderLeft:"solid 2px black",
-borderRight:"solid 2px black",
+
 content: "attr(alt)",
 transition: "all 0.6s",
-transform: 'translateY(-4px) scaleY(1.5)',
-background: 'hsl(200 10% 80% 0.1)',
-transition: "transform .9s ",
+transform: 'translateY(-10px) scaleZ(2.2)',
+
+transition: "transform .5s ",
 zIndex:"0"
 
 }
@@ -104,6 +105,7 @@ zIndex:"0"
     color: theme.palette.getContrastText(deepPurple[500]),
     fontFamily:"'Homemade Apple', cursive;",
     backgroundColor: deepPurple[500],
+    
   },
   khalil:{
     backgroundColor:"rgb(63,180,192)",

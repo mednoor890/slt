@@ -5,8 +5,9 @@ import 'react-toastify/dist/ReactToastify.css'
 import { useState,useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { createPost } from '../../actions/posts';
-import {  Button } from '@material-ui/core';
+import {FormButton} from '../Auth/Auth'
 import useStyles from './styles';
+import { useHistory } from 'react-router-dom';
 import FileBase from 'react-file-base64';
 const Background=styled.div`
 width:100%;
@@ -46,12 +47,7 @@ const ModalContent = styled.div`
   p {
     margin-bottom: 1rem;
   }
-  button {
-    padding: 10px 24px;
-    background: black;
-    color: coral;
-    border: none;
-  }
+  
 `;
 
 /*const CloseModalButton = styled(MdClose)`
@@ -86,17 +82,20 @@ opacity:0.9;
 border-radius:2px;
 display:flex;
 align-items:center;
+font-family:"Courier New";
 `
 export const textAnimation=keyframes`
 0%
 {
   transform: scale( .75 );
-  color:white
+  color:white;
+  
 }
 20%
 {
-  transform: scale( 1.1 );
+  transform: scale( 1 );
   color:orange;
+
 }
 40%
 {
@@ -105,7 +104,7 @@ export const textAnimation=keyframes`
 }
 60%
 {
-  transform: scale( 1.1 );
+  transform: scale( 1 );
   color:red;
 }
 80%
@@ -155,14 +154,16 @@ export const Select = styled.select`
   }
 `
 toast.configure()
-const initState= { Titre:"",ageMin:"",ageMax:"",description:"" ,ville:"",tel:'',categorie:"",isAssociation:"", Gouvernorat:"" ,Photo:"",DateDeroulement:"",createur:"" }
+const initState= { Titre:"",ageMin:"",ageMax:"",description:"" ,ville:"",tel:'',categorie:"",isAssociation:"", Gouvernorat:"" ,Photo:"",Datederoulement:"",temps:"" }
 function FormActivite({ currentId, setCurrentId }){
  
   const classes = useStyles();
  // const Form = () => {
         const [postData, setPostData] = useState(initState);
         const user = JSON.parse(localStorage.getItem('profile'));
-
+        const history = useHistory();
+        const userData=useSelector((state)=>state.auth)
+        
        const post = useSelector((state) => (currentId ? state.posts.find((message) => message._id === currentId) : null));
       useEffect(() => {
         if (post) setPostData(post);
@@ -171,15 +172,15 @@ function FormActivite({ currentId, setCurrentId }){
         const handleSubmit1 = async (e) => {
             e.preventDefault();
             //const isValid=formValidation()
-              dispatch(createPost({...postData}));
+              dispatch(createPost({...postData,name: user?.result?.Nom ,Avatar: user.result?.selectedFile}, history) );
           };
 
          const notify=()=>{
-           if((10<postData.ageMax)&&(postData.ageMax<100 )&&(6<postData.ageMin)&&(postData.ageMin<50)){
-           toast('activité ajouté avec succés')
+           if((postData.Titre.length==0)||(postData.ageMax > "100" )||(postData.ageMin< "6")||(postData.description.length==0)||(postData.category.length==0)||(postData.Gouvernorat.length==0)) {
+           toast('veuillez verifier les informations saisie')
          }
          else{
-         toast('veuillez valider tes donnees entree')
+         toast('activite ajouté')
         }}
         if (!user?.result?.Nom) {
           return (
@@ -206,7 +207,9 @@ function FormActivite({ currentId, setCurrentId }){
 <Input type="text" name="description"  placeholder="decrire l'acitivité et ses detailles" value={postData.description} onChange={(e) => setPostData({ ...postData, description: e.target.value })}/>
 <Input type="text" name="ville" placeholder="sasir la ville ou adresse de deroulement" value={postData.ville} onChange={(e) => setPostData({ ...postData, ville: e.target.value })}/>
 <Input type="number" name="tel" placeholder=" saisir ton numero de telephone" value={postData.tel} onChange={(e) => setPostData({ ...postData, tel: e.target.value })}/>
-<Input type="" placeholder="saisir la date de ton activite" value={postData.DateDeroulement} onChange={(e) => setPostData({...postData,DateDeroulement: e.target.value})} />
+<Input  type="date" placeholder="saisir la date de deroulement" name="birthday" value={postData.Datederoulement} onChange={(e) => setPostData({...postData,Datederoulement: e.target.value})} />
+<Input  type="time" placeholder="saisir le temps de rendez-vous" name="birthday1" value={postData.temps} onChange={(e) => setPostData({...postData,temps: e.target.value})} />
+
 <Select name="categorie" value={postData.categorie} onChange={(e) => setPostData({ ...postData, categorie: e.target.value })}>
 <option value="" > Categorie</option>
 <option value="Sport" >Sport</option>
@@ -255,7 +258,7 @@ function FormActivite({ currentId, setCurrentId }){
 
 
 
-<Button className={classes.buttonSubmit} variant="contained" onClick={notify} size="large" type="submit" >Publier</Button>
+<FormButton    style={{ marginLeft: '2px'}} onClick={notify} size="large" type="submit" >Publier</FormButton>
 
 </ModalContent>
 

@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Container, AppBar, Grid,TextField,Button } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
-import ChipInput from 'material-ui-chip-input';
 import { getPosts } from '../../actions/posts';
+
 import ActivitePosts from '../ActivitePosts/ActivitePosts';
 import styled from "styled-components"
 import { getPostsBySearch } from '../../actions/posts';
 import { useHistory, useLocation } from 'react-router-dom';// useHistory allows us to renavigate to certain  pages and search terms \ uselocation is used to now on which page we r currently
+import Headers from '../ActivitePosts/Headers';
+
 const Select = styled.select`
   width: 370px;
   height: 35px;
@@ -15,7 +17,7 @@ const Select = styled.select`
   margin-top:18px;
   padding-left: 5px;
   font-size: 18px;
-  border-radius:10x;
+  border-radius:1px;
   
   margin-left: 190px;
   &:hover {
@@ -68,48 +70,58 @@ margin-top:20px;
 `;
 const Wrapper=styled.div`
 height:150px;
-background-color:black;
+background-color:white;
 width:112%;
-margin-left:-67px
+margin-left:-67px;
+border-bottom-left-radius: 30%;
+border-bottom-right-radius: 90%;
+border-bottom: 882px solid  pink;
+background-image: linear-gradient(rgb(63,81,181), pink);
+-webkit-box-shadow:5px 1px 1px white;
+ -moz-box-shadow:5px 5px 1px white;
+ box-shadow:5px 5px 1px white;
 
 `
+
 function useQuery() {
   return new URLSearchParams(useLocation().search);
 } 
 //this allows us to use it us a hook 
 const Home = () => {
   const [currentId, setCurrentId] = useState(0);
+  const [nId, setnId] = useState(0)
   const dispatch = useDispatch();
-  const query = useQuery();
+  const query = useQuery();//query is where we will be getting our page info from
   const searchQuery = query.get('searchQuery');
   const history = useHistory();
+  const [Filter, setFilter] = useState("")
+  const [Search, setSearch] = useState("")
   const searchPost = () => {
     if (Filter || Search) {
-      dispatch(getPostsBySearch( Search, Filter ));
-      history.push(`/search?searchQuery=${Search || 'none'}&isAssociation=${Filter}`);
+      dispatch(getPostsBySearch( { Search, Filter }));
+    history.push(`/search?searchQuery=${Search || 'none'}&isAssociation=${Filter}`);
     } else {
       history.push('/');
     }
   };
 
-  //const handleAddChip = (tag) => setTags([...tags, tag]);
 
 
 //useEffect feha fonction hiya ela t7adedlek kifech besh tetbadel lstate mta3ek
   useEffect(() => {
     dispatch(getPosts());
   }, [currentId, dispatch]);
-  const [Filter, setFilter] = useState("")
-  const [Search, setSearch] = useState("")
+ 
   return (
     <>
     <Wrapper>
-<Select name="isAssociation" value={Filter} onChange={(e) => setFilter({ Filter: e.target.value })}>
+<Select name="isAssociation" value={Filter} onChange={(e) => setFilter( e.target.value )}>
   <option >Afficher activite Associative ou Personnelle</option>
-  <option>Personnelle</option>
-  <option>Associative</option>
+  <option value="personelle">Personnelle</option>
+  <option value="associative">Associative</option>
 </Select>
-<Select name="Gouvernorat" value={Search} onChange={(e) => setSearch({ Search: e.target.value })}>
+
+<Select name="Gouvernorat" value={Search} onChange={(e) => setSearch( e.target.value )}>
   <option>Afficher activite selon Gouvernorat</option>
   <option value="ariana ">Ariana</option>
          <option value="Beja ">Beja</option>

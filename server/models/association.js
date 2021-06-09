@@ -18,6 +18,9 @@ const associationSchema = mongoose.Schema({
         type: Date,
         default: new Date(),
     },
+    likesASS:{type:[String],
+    default:[]
+    },
     
 
     Photo:String

@@ -1,13 +1,14 @@
 import React from 'react';
 import styled from 'styled-components'
-import {MdClose} from 'react-icons/md'
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { createPostASS } from '../../actions/associations';
 import {  Button } from '@material-ui/core';
 import FileBase from 'react-file-base64';
+import {FormButton} from '../Auth/Auth'
 import {Wrapper,Name } from '../Form/FormActivite'
-
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 const Background=styled.div`
 width:100%;
 height:100%;
@@ -46,12 +47,7 @@ const ModalContent = styled.div`
   p {
     margin-bottom: 1rem;
   }
-  button {
-    padding: 10px 24px;
-    background: black;
-    color: coral;
-    border: none;
-  }
+  
 `;
 
 /*const CloseModalButton = styled(MdClose)`
@@ -116,7 +112,13 @@ function FormAss(){
             e.preventDefault();
               dispatch(createPostASS({...postDataas}));
           };
-         
+          const valider=()=>{
+            if((postDataas.Nom.length==0)||(postDataas.description.length==0)||(postDataas.ville.length==0 )||(postDataas.Categorie.length==0)||(postDataas.Gouvernorat.length==0)) {
+            toast('veuillez verifier les informations saisie')
+          }
+          else{
+          toast('activite ajouté')
+         }}
          if (!user?.result?.Nom) {
            return (
              <>
@@ -198,7 +200,7 @@ inputProps={{
 
 
 
-<Button  variant="contained"  size="large" type="submit" color="primary" >Publier</Button>
+<FormButton  style={{ marginLeft: '2px'}}    contained="outlined" onClick={valider} >Publier</FormButton>
 
 </ModalContent>
 

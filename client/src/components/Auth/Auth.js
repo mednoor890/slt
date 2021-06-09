@@ -1,6 +1,5 @@
 import React ,{useState}from 'react'
-import { Avatar,Button, Paper,Grid, Typography, Container,TextField,MenuItem} from '@material-ui/core'
-import { useDispatch } from 'react-redux';
+import { Avatar,Button, Paper,Grid, Typography, Container,TextField,MenuItem} from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import  Input  from "./Input"
@@ -8,6 +7,7 @@ import FileBase from 'react-file-base64';
 import styled ,{keyframes}from 'styled-components'
 //import  CustomizedHook from "./MultipleSelect";
 import { signin, signup } from '../../actions/auth';
+import { useDispatch} from 'react-redux';
 
 const Sandouk=styled.div`
 width:100%;
@@ -18,15 +18,11 @@ background-color:pink;
 const Wrapper=styled.div`
 
 width:40%;
-background: #B47DD8;
-background: -webkit-linear-gradient(top left, pink 0%, #3F51B5 100%);
-background: -moz-linear-gradient(top left, hotpink 80%, grey 100%);
-background: -o-linear-gradient(top left, hotpink 0%, #3F51B5 100%);
-background: linear-gradient(to bottom right,#3F51B5 0%, hotpink 100%);
+background: rgb(63,81,181);
 
-border : groove 4px; 
+border : groove 5px; 
 border-radius:66px;
-border-color:pink;
+border-color:white;
 margin-top:80px;
 margin-left:29%;
 `
@@ -41,7 +37,7 @@ margin-top:-53px;
 margin-bottom:19px;
 font-size:30px;
 `
-const FormButton=styled.button`
+export const FormButton=styled.button`
 display: block;
 width: 60%;
 padding: 12px 0;

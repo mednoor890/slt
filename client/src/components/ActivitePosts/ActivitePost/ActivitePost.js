@@ -1,15 +1,20 @@
 import React, { useEffect, useState } from 'react'
-import styled from 'styled-components';
-import { useDispatch} from 'react-redux';
+import { useDispatch, useSelector} from 'react-redux';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import Collapse from '@material-ui/core/Collapse'
 import IconButton from '@material-ui/core/IconButton';
-import { Avatar} from '@material-ui/core'
-import { createComment } from '../../../actions/comments';
+import styled from "styled-components"
+import { Avatar,Button} from '@material-ui/core';
+import DeleteIcon from '@material-ui/icons/Delete';
+import { useHistory } from 'react-router-dom';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import FavoriteIcon from '@material-ui/icons/Favorite';
-import {likePost} from '../../../actions/posts'
+import {likePost,deletePost } from '../../../actions/posts'
 import moment from 'moment'
+import localization from 'moment/locale/fr';
+
+
+import { createComment } from '../../../actions/comments';
 export const Container = styled.div`
  
   position:relative;
@@ -41,7 +46,7 @@ export const Body = styled.div`
   width:95%;
   background-color:whitesmoke
 `;
-const Input = styled.input`
+export const Input = styled.input`
   font-size: 18px;
   padding: 10px;
   margin-left: 1px;
@@ -58,7 +63,7 @@ export const Title = styled.h1`
   font-size: 1.35rem;
   color:black;
   align-items:center;
-  font-family:"'Homemade Apple', cursive;";
+  font-family:"'Homemade Apple'", cursive;
   font-weight: bold;
   margin-left:25px;
 
@@ -122,8 +127,9 @@ export const Jadore=styled.button `
 width:15%;
 height:15%;
 margin-left:50%;
-background-color:red;
-color:white;
+color:red;
+font-family:'Homemade Apple', cursive;
+background-color:rgb(224,241,252);
 cursor:pointer;
 border:none;
 border-radius:35px;
@@ -140,49 +146,61 @@ margin-top:-5px;
 font-size:12px;
 color:grey;
 }`
-
+const Nlikes=styled.h1`
+margin-left:1px;
+font-size:18px;
+`
 function ActivitePost({post,setCurrentId}) {
+const initStatus= { commentaire:""}
 const dispatch = useDispatch()
+const history = useHistory();
 const user = JSON.parse(localStorage.getItem('profile'));
 const [expanded, setExpanded] = React.useState(false);
-const [commentData, setCommentData] = useState({commentaire:''})
-//const [activeStep, setactiveStep] = useState(0)
+const [CommentData, setCommentData] = useState(initStatus);
+
 const handleExpandClick = () => {
   setExpanded(!expanded);
 };
-const handleClick2=async(e) =>{
-e.preventDefault()
-dispatch(createComment({commentData}))
-}
-/*const increment=()=>{
-setactiveStep(prevActiveStep => prevActiveStep+1)
-} */
 
+
+
+const handleCommentaire =async(e) =>{
+  e.preventDefault()
+  dispatch(createComment({...CommentData}))
+}
+moment.locale('fr', localization);
   return (
     
       <Container>
-        <Body><Avatar src={post.createur.selectedFile}></Avatar> {post.createur.Nom}
-        <Wakt>{moment(post.createdAt).fromNow()}</Wakt>
-         </Body>
+    
+    <Body><Avatar src={post.Avatar}></Avatar> 
+       <Wakt>{
+       moment(post.Datederoulement).fromNow(post.createdAt)}</Wakt>
+         </Body>     
       <Image src={post.Photo}/>
 <Title > Titre: {post.Titre}
-<Jadore disabled={!user?.result} onClick={()=> dispatch(likePost(post._id))} >
-        <FavoriteIcon fontSize='large'/>
-       {post.heartCount} ❤️ 
+<Jadore  disabled={!user?.result} onClick={()=> dispatch(likePost(post._id))}>
+          <FavoriteIcon fontSize='large'/>
+         <Nlikes>{post.heartCount} j'adore </Nlikes> 
        </Jadore>
 
+       
 </Title>
 
-
- 
+{(user?.result?.googleId === post?.creator || user?.result?._id === post?.creator) && (
+          <Button size="small" color="secondary" onClick={() => dispatch(deletePost(post._id))}>
+            <DeleteIcon fontSize="small" /> &nbsp; Supprimer
+          </Button>
+)}
 
 
 <IconButton
-        
+        disabled={!user?.result}
           onClick={handleExpandClick}
           aria-expanded={expanded}
           aria-label="show more"
-        >
+         
+        style={{ marginLeft:"350px",borderRadius:"15px",border:" inset 1px pink" ,marginBottom:"6px",fontFamily:"'Homemade Apple'"}}>
           <ExpandMoreIcon /> je participe (voir plus)
 <CheckCircleIcon/>
           </IconButton>
@@ -195,9 +213,14 @@ setactiveStep(prevActiveStep => prevActiveStep+1)
 <Text>Categorie:{post.categorie}</Text>
 <Text>associative: {post.isAssociation}
 </Text>
+<Text>date de deroulement:{post.Datederoulement}</Text>
+<Text>Heure de rendez-vous:{post.temps}</Text>
+<Text> createur:{post.name}</Text>
+
 <Title>commentaire</Title>
-<Input name='commentaire' placeholder="ecrire un commentaire"  value={commentData.commentaire} onChange={(e) => setCommentData({  commentaire: e.target.value })}/>
-<CardButton onClick={handleClick2}>commenter </CardButton>
+
+<Input placeholder="ecrire un commentaire"  value={CommentData.commentaire} onChange={(e) => setCommentData({ ...CommentData, commentaire: e.target.value })}/>
+<CardButton onClick={handleCommentaire}>commenter </CardButton>
   
 </Collapse>
       </Container>

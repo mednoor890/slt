@@ -2,7 +2,7 @@ import React ,{ useState, useEffect }from 'react'
 import { AppBar,Avatar,Button,Typography,Toolbar } from '@material-ui/core'
 import useStyles from "./styles"
 import * as actionType from '../../constants/actionTypes';
-import { useDispatch} from 'react-redux';
+import { useDispatch } from 'react-redux';
 import decode from 'jwt-decode';
 import {Link, useHistory, useLocation  } from "react-router-dom";
 
@@ -38,7 +38,7 @@ function Navbar() {
         <>
             <AppBar className={classes.appBar} position ="relative" >
                 <div className={classes.brandContainer}>
-                <Typography component ={Link} to ="/" className={classes.heading} variant="h2" align='center'><div className={classes.noor}>ACT</div>ivities</Typography>
+                <Typography component ={Link} to ="/" className={classes.heading} variant="h2" align='center'><div className={classes.noor}>ACT</div>&VIT</Typography>
                 <Typography component ={Link} to ="/activite" className={classes.add}  variant="h6" align='center'>Ajouter une activitee
                 </Typography>
                 <Typography component ={Link} to ="/association" className={classes.add}  variant="h6" align='center'>Ajouter une association
@@ -54,7 +54,7 @@ function Navbar() {
           <div className={classes.profile}>
             <Avatar className={classes.purple} alt={user?.result.Nom} src={user?.result.selectedFile} component={Link} to="/profil">{user?.result.Nom.charAt(0)}</Avatar>
             <Typography className={classes.userName} variant="h6">{user?.result.Nom}</Typography>
-            <Button variant="contained" className={classes.logout} color="secondary" onClick={logout}>Deconnecter</Button>
+            <Button variant="contained" size="small" className={classes.logout} color="secondary" onClick={logout}>Deconnecter</Button>
           </div>
         ):(
             <Button component={Link} to="/auth" variant ="contained" color='primary'> s'inscrire</Button>
