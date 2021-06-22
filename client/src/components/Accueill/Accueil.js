@@ -7,7 +7,6 @@ import ActivitePosts from '../ActivitePosts/ActivitePosts';
 import styled from "styled-components"
 import { getPostsBySearch } from '../../actions/posts';
 import { useHistory, useLocation } from 'react-router-dom';// useHistory allows us to renavigate to certain  pages and search terms \ uselocation is used to now on which page we r currently
-import Headers from '../ActivitePosts/Headers';
 
 const Select = styled.select`
   width: 370px;
@@ -49,10 +48,10 @@ export const CardButton = styled.button`
   font-family: inherit;
   font-size: 14px;
   font-weight: 700;
-  color: white  ;
-  background-color:grey ;
-  border: 2px groove;
-  border-color:#FFFFF0;
+  color: rgb(233,78,84) ;
+  background-color:black ;
+  border: 2px solid;
+  border-color:rgb(233,78,84);
   border-radius: 10px;
   box-shadow: 0 10px 10px rgba(100, 100, 100, 0.9);
   cursor: pointer;
@@ -63,23 +62,25 @@ margin-top:20px;
 &:hover {
     box-shadow: 0 15px 15px rgba(50, 70, 80, 0.9);
     transform: translateX(0, -5px);
-    background-color:rgb(63,81,181)  ;
+    background-color:rgb(233,78,84) ;
     font-size:22px;
   color:black ;
+  border-color:white;
+
   }
 `;
 const Wrapper=styled.div`
 height:150px;
-background-color:white;
+background-color:red;
 width:112%;
 margin-left:-67px;
 border-bottom-left-radius: 30%;
 border-bottom-right-radius: 90%;
-border-bottom: 882px solid  pink;
-background-image: linear-gradient(rgb(63,81,181), pink);
+border-bottom: 282px solid rgb(233,85,79);
+background-image: linear-gradient(black, rgb(233,85,79));
 -webkit-box-shadow:5px 1px 1px white;
  -moz-box-shadow:5px 5px 1px white;
- box-shadow:5px 5px 1px white;
+ box-shadow:5px 5px 1px #F6B7B9;
 
 `
 
@@ -99,7 +100,7 @@ const Home = () => {
   const searchPost = () => {
     if (Filter || Search) {
       dispatch(getPostsBySearch( { Search, Filter }));
-    history.push(`/search?searchQuery=${Search || 'none'}&isAssociation=${Filter}`);
+    //history.push(`/search?Gouvernorat=${Search || 'none'}&isAssociation=${Filter}`);
     } else {
       history.push('/');
     }

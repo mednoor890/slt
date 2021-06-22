@@ -4,19 +4,23 @@ import {useDispatch, useSelector} from 'react-redux';
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import ThumbUpAltOutlined from '@material-ui/icons/ThumbUpAltOutlined';
 import moment from 'moment';
-import useStyles from './styles';
-import { useParams, useHistory } from 'react-router-dom';
+import useStyles from "./styles"
+import CommentSection from './Comments';
+import Rating from '@material-ui/lab/Rating';
+import Box from '@material-ui/core/Box';
+import LocalPostOfficeIcon from '@material-ui/icons/LocalPostOffice';
+import { useParams, useHistory,Link } from 'react-router-dom';
 import { getPostAs,likePostASS } from '../../actions/associations';
 import styled from 'styled-components'
 const Piper=styled.div`
 width:115%;
-background-color:rgb(63,81,181);
+
 margin-left:-70px;
 
 `
 const Name=styled.h1`
 font-size:40px;
-color:rgb(38,247,0);
+color:rgb(233,85,79);
 margin-left:15px;
 
 `
@@ -29,10 +33,10 @@ height:20%;
 width:100%;
 display:flex;
 flex-direction:row;
-
+background-color: #1F0B0B;
 `
 const ImageWrapper=styled.div`
-background-color:rgb(63,81,181);
+background-color:#1F0B0B;
 border:solid 2px white;
 border-radius:100%;
 margin-left:200px;
@@ -53,18 +57,26 @@ width:200px;
 
 
 `
+const WrapGov=styled.div`
+display:flex;
+flex-direction:row;
+background-color:red;
+width:99%;
+margin-top:-40px;
+background-color:#1F0B0B;
+`
 const Gouvernorat=styled.h3`
-width:15px;
-height:15px;
 color:white;
-margin-left:150px;
-margin-top:350px;
+margin-left:300px;
+
 `
 const PostDetails = () => {
-const {association, associations} = useSelector((state) => state.associations);
+const {association} = useSelector((state) => state.associations);
 const dispatch = useDispatch();
 const history = useHistory();
-const {id} = useParams();
+const { id } = useParams();
+const [value, setValue] = React.useState(2);
+const classes=useStyles()
 
 useEffect(()=>{
     dispatch(getPostAs(id));
@@ -72,30 +84,38 @@ useEffect(()=>{
 if (!association) return null;
 /*  Nom, email , categorie , ville  ,description,Gouvernorat , Photo*/
 const user = JSON.parse(localStorage.getItem('profile'));
-const LikesASS = () => {
-  if (association?.LikesASS?.length > 0) {
-    return association.likesASS.find((like) => like === (user?.result?.googleId || user?.result?._id))
-      ? (
-        <><ThumbUpAltIcon fontSize="small" />&nbsp;{association.likesASS.length > 2 ?` You and ${association.likesASS.length - 1} others. `: `${association.likesASS.length} like${association.likesASS.length > 1 ? 's' : ''}` }</>
-      ) : (
-        <><ThumbUpAltOutlined fontSize="small" />&nbsp;{association.likesASS.length} {association.likesASS.length === 1 ? 'Like' : 'Likes'}</>
-      );
-  }
 
-  return <><ThumbUpAltOutlined fontSize="small" />&nbsp;Like</>;
-};
     return(
 <Piper >
+
 <Wrapper>
+<Box component="fieldset" mb={3} borderColor="transparent">
+        
+        <Rating
+          name="simple-controlled"
+          className={classes.rating}
+          value={value}
+          onChange={(event, newValue) => {
+            setValue(newValue);
+          }}
+        />
+      </Box>
      <ImageWrapper> 
         <Image     src={association.Photo || 'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'} alt={association.Nom} />
 </ImageWrapper>
        <NameWrapper>
           <Name >Nous sommes {association.Nom} .</Name>
           <Name>une Association du {association.categorie}.</Name>
+          <Name style={{marginTop:"-250px",marginLeft:"100px",fontFamily:'Brush Script MT',color:"rgb(214,230,255,0.7)"}}> une association creé par <Link>{association.Noma}</Link>.</Name>
+
           </NameWrapper>
-          <Gouvernorat>{association.ville},{association.Gouvernorat}</Gouvernorat>
+          
           </Wrapper>
+          <WrapGov>
+          <Gouvernorat ><LocalPostOfficeIcon style={{marginRight:"5px",marginBottom:"-5px"}}/>{association.email}</Gouvernorat>
+          <Gouvernorat>{association.ville},{association.Gouvernorat}</Gouvernorat>
+         
+          </WrapGov>
          {/* <Typography>{association.categorie.map((categorie) => `#${categorie} `)}</Typography>
           <Typography gutterBottom variant="body1" component="p">{association.description}</Typography>
           <Typography variant="h6">Created by: {association.Nom}</Typography>
@@ -112,6 +132,9 @@ const LikesASS = () => {
        
         
     */}
+                <CommentSection />
+
+      
       </Piper>
     );
 };

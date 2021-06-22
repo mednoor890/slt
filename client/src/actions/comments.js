@@ -1,4 +1,4 @@
-import * as api from "../api/index.js"
+/*import * as api from "../api/index.js"
 import {   CREATE_COMMENT } from '../constants/actionTypes';
 export const createComment =(comment,postId) => async (dispatch) => {
    
@@ -10,4 +10,4 @@ export const createComment =(comment,postId) => async (dispatch) => {
     }
     
       }
-      
+      */

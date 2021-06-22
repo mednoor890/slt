@@ -116,7 +116,7 @@ function Profil() {
         
         <ImageWrapper> 
         <Image  alt={user?.result.Nom} src={user?.result.selectedFile}/>    
-
+     
         </ImageWrapper>
               
     

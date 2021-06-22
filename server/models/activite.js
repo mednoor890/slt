@@ -5,11 +5,12 @@ const activiteSchema = mongoose.Schema({
     isAssociation:String,
     categorie:[String],
     ageMin:{type:Number, min:6, max:50},
-    ageMax:{type:Number, min:10 ,max:100},
+    ageMax:{type:Number, min:7 ,max:100},
     description: String,
     name:String,
     createur:String,
     Avatar:String,
+    prenom:String,
     //createur:[{type:mongoose.Schema.Types.ObjectId,ref:"user"}],
     Gouvernorat :[String], /* gouvernorat*/
     ville :String,
@@ -23,12 +24,10 @@ const activiteSchema = mongoose.Schema({
      
     },
     temps: {type: String},
-    comments: [{ type: mongoose.Types.ObjectId, ref: 'avis' }],
-
-    
-    heartCount:{
-        type:Number,
-        default:0
+    comments: { type: [String], default: [] },    
+    heartCount:
+        {type:[String],
+            default:[]
  },
     //commentaireBy:{type:[mongoose.Schema.Types.ObjectId],ref:"User"}
     

@@ -1,4 +1,4 @@
-import {  CREATE_COMMENT } from '../constants/actionTypes';
+/*import {  CREATE_COMMENT } from '../constants/actionTypes';
 export default  (comments = [], action)=>{
     //the state should always have a value 
     switch(action.type){
@@ -8,4 +8,4 @@ return [comments, action.payload]; // all the posts and the new post is stored i
 default:
     return comments;
     }
-}
+}*/

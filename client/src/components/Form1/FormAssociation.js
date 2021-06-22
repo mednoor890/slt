@@ -110,7 +110,8 @@ function FormAss(){
         const dispatch = useDispatch();
         const handleSubmit1 = async (e) => {
             e.preventDefault();
-              dispatch(createPostASS({...postDataas}));
+              dispatch(createPostASS({...postDataas,Noma: user?.result?.Nom 
+                ,Prenom: user.result?.Prenom}));
           };
           const valider=()=>{
             if((postDataas.Nom.length==0)||(postDataas.description.length==0)||(postDataas.ville.length==0 )||(postDataas.Categorie.length==0)||(postDataas.Gouvernorat.length==0)) {
@@ -142,7 +143,7 @@ function FormAss(){
        
 <Input type="text" name="email" placeholder="saisir un email" value={postDataas.email} onChange={(e) => setpostDataas({ ...postDataas, email: e.target.value })}/>
 <Input type="text" name="description"  placeholder="decrire l'association et ses detailles" value={postDataas.description} onChange={(e) => setpostDataas({ ...postDataas, description: e.target.value })}/>
-<Input type="text" name="ville" placeholder="sasir la ville ou adresse de deroulement" value={postDataas.ville} onChange={(e) => setpostDataas({ ...postDataas, ville: e.target.value })}/>
+<Input type="text" name="ville" placeholder="sasir locale ou adresse d'activité" value={postDataas.ville} onChange={(e) => setpostDataas({ ...postDataas, ville: e.target.value })}/>
 <Select name="Categorie" 
 name="Categorie" fullWidth value={postDataas.categorie} onChange={(e) => setpostDataas({ ...postDataas, categorie: e.target.value.split(',') })}
 inputProps={{

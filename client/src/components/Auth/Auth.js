@@ -8,19 +8,14 @@ import styled ,{keyframes}from 'styled-components'
 //import  CustomizedHook from "./MultipleSelect";
 import { signin, signup } from '../../actions/auth';
 import { useDispatch} from 'react-redux';
+import Select from 'react-select'
 
-const Sandouk=styled.div`
-width:100%;
-height:100%;
-background-color:pink;
-
-}`
 const Wrapper=styled.div`
 
 width:40%;
-background: rgb(63,81,181);
-
+background-image: radial-gradient(#eb3349, #f45c43);
 border : groove 5px; 
+opacity:0.8;
 border-radius:66px;
 border-color:white;
 margin-top:80px;
@@ -45,7 +40,7 @@ font-family: inherit;
 font-size: 14px;
 font-weight: 700;
 color: white  ;
-background-color:grey ;
+background-color:  rgb(183,126,128) ;
 border: 2px groove;
 border-color:#FFFFF0;
 
@@ -58,14 +53,40 @@ margin-top:20px;
 &:hover {
   box-shadow: 0 15px 15px rgba(50, 70, 80, 0.9);
   transform: translateX(0, -5px);
-  background-color:rgb(63,81,181)  ;
+  background-color:rgb(174,59,63) ;
   font-size:22px;
 color:black ;
 }
 `
+const Selector = styled.select`
+  width: 420px;
+  background: whitesmoke;
+  opacity:0.7;
+  color: black;
+  margin-top:18px;
+  font-size: 18px;
+  border: none;
+  border-radius:3px;
+  padding: 10px;
+  margin-left:17px;
+  option {
+    color: black;
+    background: whitesmoke;
+    display: flex;
+    white-space: pre;
+    min-height: 20px;
+    padding: 0px 20px 1px;
+    ::placeholder {
+      color: ;
+    }
+  }
+`
 
-
-
+const options = [
+  { value: 'Sport', label: 'Sport' },
+  { value: 'Culture', label: 'Culture' },
+  { value: 'Politique', label: 'Politique' }
+]
 const initialState={Nom:"",Prenom:"", Age:"", Gouvernorat:"",Gender:"",Cinteret:"",Email:"",  Password:"",confirmPassword:"",selectedFile:""}
 /*const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;*/
@@ -100,7 +121,13 @@ setFormData({...form,[e.target.name]:e.target.value})
 
 
         }
-       
+        const colourStyles = {
+          control: styles => ({ ...styles, backgroundColor: 'whitesmoke',opacity:0.7,width:"420px",marginLeft:"17px" ,marginTop:"17px",marginBottom:"10px"}),
+          
+          }
+          
+      
+        
          return (
 
         <Wrapper >
@@ -123,8 +150,14 @@ setFormData({...form,[e.target.name]:e.target.value})
             <Input name="Prenom" label="Prenom" handleChange={handleChange}  fullWidth></Input>
             <Input name="Age" label="age" min="0" max="80" type="Number" handleChange={handleChange } fullWidth />
             <FileBase name="selectedFile" type="file" multiple={false} onDone={({ base64 }) => setFormData({ ...initialState,selectedFile: base64 })} />
-            <Input name="Gender" label="Sexe"   handleChange={handleChange } fullWidth />
-            <Input name="Cinteret" label="Categorie"  handleChange={handleChange } fullWidth />
+            <Selector name="Gender" value={form.gender} onChange={(e) => setFormData({ ...form,gender: e.target.value })} >
+<option value="homme ">Homme</option>
+<option value="femme">Femme</option>
+         </Selector>
+         <Select  label="Categorie" isMulti="true"  styles={colourStyles}
+ options={options} />
+
+                     <Input name="Cinteret" label="Categorie"  handleChange={handleChange } fullWidth />
             <Input name="Gouvernorat" label="Gouvernorat"  handleChange={handleChange } fullWidth />
             </>
         )

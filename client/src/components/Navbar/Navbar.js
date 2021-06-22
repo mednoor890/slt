@@ -4,8 +4,31 @@ import useStyles from "./styles"
 import * as actionType from '../../constants/actionTypes';
 import { useDispatch } from 'react-redux';
 import decode from 'jwt-decode';
-import {Link, useHistory, useLocation  } from "react-router-dom";
+import styled from 'styled-components'
+import {Link,NavLink, useHistory, useLocation  } from "react-router-dom";
+const FormButtonSign=styled.button`
+display: block;
+width: 40%;
+padding: 12px 0;
+font-family: inherit;
+font-size: 14px;
+font-weight: 700;
+color: white  ;
+background-color:  #4FE9E3 ;
+border: 2px groove;
+border-color:#FFFFF0;
 
+box-shadow: 0 10px 10px rgba(100, 100, 100, 0.9);
+cursor: pointer;
+transition: all 0.25s cubic-bezier(0.02, 0.01, 0.47, 1);
+&:hover {
+  box-shadow: 0 15px 15px rgba(50, 70, 80, 0.9);
+  transform: translateY(0, -5px);
+  background-color:#4FE9E3 ;
+  font-size:18px;
+color:black ;
+}
+`
 
 
 function Navbar() {
@@ -53,11 +76,10 @@ function Navbar() {
         {user?.result ? (
           <div className={classes.profile}>
             <Avatar className={classes.purple} alt={user?.result.Nom} src={user?.result.selectedFile} component={Link} to="/profil">{user?.result.Nom.charAt(0)}</Avatar>
-            <Typography className={classes.userName} variant="h6">{user?.result.Nom}</Typography>
-            <Button variant="contained" size="small" className={classes.logout} color="secondary" onClick={logout}>Deconnecter</Button>
+            <FormButtonSign  onClick={logout}>Deconnecter</FormButtonSign>
           </div>
         ):(
-            <Button component={Link} to="/auth" variant ="contained" color='primary'> s'inscrire</Button>
+            <Button component={Link} to="/auth" style={{backgroundColor:"#4FE9E3",color:"white"}}  > s'inscrire</Button>
         )
         
         }

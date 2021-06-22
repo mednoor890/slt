@@ -3,14 +3,14 @@ import Association from '../models/association.js'
 import mongoose from 'mongoose'
 const router=express.Router()
 export const createPostASS =async(req,res)=>{
-const {Nom,email,categorie,ville,description,Gouvernorat,Photo}=req.body
-const A =new Association({  Nom, email , categorie , ville  ,description,Gouvernorat , Photo})
+const A=req.body
+const assoc =new Association({  ...A,createur: req.userId})
 try {
-    if (Nom.length ===0 || email.length===0 || categorie.length===0 || Gouvernorat.length===0 || ville.length===0||(description.length===0))
-    return res.status(400).json({msg:"please add all fucking fields"}) 
-
-    await A.save()
-    res.status(201).json(A)
+   /* if (Nom.length ===0 || email.length===0 || categorie.length===0 || Gouvernorat.length===0 || ville.length===0||(description.length===0))
+    return res.status(400).json({msg:"please add all fucking fields"}) */
+if (!A) return  res.status(400).json({msg:"please add all fucking fields"})
+    await assoc.save()
+    res.status(201).json(assoc)
 } catch (error) {
     res.status(409).json({message:error.message})
 }
@@ -22,8 +22,23 @@ try {
 } catch (error) {
     res.status(404).json({message:error.message})
 }
+}
+export const getAssociationBySearch=async(req,res)=>{
+const {Rechercher} =req.query
+    try {
+    const title = new RegExp(Rechercher,'i');
+const association = await Association.find(    [    {title}   ]              )
+res.json({data: association})
+} catch (error) {
+    res.status(404).json({error: error.message})
+}
+
 
 }
+
+
+
+
 export const getPostASS =async(req,res)=>{
     const { id } = req.params;
     try {
@@ -52,5 +67,17 @@ export const likePostASS = async(req,res)=>{
       const updatedPostASS = await Association.findByIdAndUpdate(id, post, { new: true });
       res.status(200).json(updatedPostASS);
   }
-    
-export default router
+  export const commentPostAss = async (req, res) => {
+    const { id } = req.params;
+    const { value } = req.body;
+
+    const association = await Association.findById(id);
+
+    association.comments.push(value);
+
+    const updatedPost = await Association.findByIdAndUpdate(id, association, { new: true });
+
+    res.json(updatedPost);
+};
+
+export default router;

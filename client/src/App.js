@@ -9,6 +9,8 @@ import Profil from './components/Profil/Profil';
 import FormAss from './components/Form1/FormAssociation';
 import ListeAssociations from './components/ListeAssociations/ListeAssociations';
 import PostDetails from './components/PostDetails/PostDetails';
+import Creator from './components/Creator/Creator';
+
  function App() {
    
              /*dispatch has access to currentState and reducer 
@@ -32,7 +34,7 @@ import PostDetails from './components/PostDetails/PostDetails';
 <Route path='/association' exact component={ FormAss }/>
 <Route path='/Listeassociation' exact component={ ListeAssociations }/>
 <Route path="/Listeassociation/:id" component={PostDetails} />
-
+<Route path="/creators/:name" exact component={Creator} />
 <Route path='/profil' exact component={Profil}/>
 
 </Switch>

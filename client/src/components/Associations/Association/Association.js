@@ -1,7 +1,12 @@
- import React from 'react'
+import React, { useState } from 'react';
 import styled from 'styled-components'
 import {Avatar, ButtonBase} from '@material-ui/core';
-import {useHistory} from 'react-router-dom';
+import {useHistory,Link} from 'react-router-dom';
+import { likePostASS } from '../../../actions/associations';
+import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
+import ThumbUpAltOutlined from '@material-ui/icons/ThumbUpAltOutlined';
+import { useDispatch } from 'react-redux';
+
 const Container=styled.div`
 background:whitesmoke;
 margin-right:10%;
@@ -17,9 +22,10 @@ margin-left:10%;
   &:hover {
     box-shadow: 0 15px 15px rgba(0, 0, 0, 0.86);
     transform: translate(0, -5px);
+    background-image: radial-gradient(#eacda3, #d6ae7b);
     background-color:rgb(214,230,255,0.7);
-    border :solid 2px #3F51B5;
-    border-radius:15px;
+    
+   
 `
 export const CardaButton = styled.button`
   
@@ -28,11 +34,11 @@ export const CardaButton = styled.button`
   padding: 12px 12px 12px 12px;
   font-size: 14px;
   font-weight: 700;
-  color: pink ;
-  background-color:rgb(63,81,181) ;
-  border: 2px groove;
-  border-color:#FFFFF0;
-  border-radius: 10px;
+  color: rgb(233,78,84);
+  background-color:white ;
+  border: 2px solid;
+  border-color:rgb(233,78,84);
+ 
   box-shadow: 0 10px 10px rgba(100, 100, 100, 0.9);
   cursor: pointer;
   transition: all 0.25s cubic-bezier(0.02, 0.01, 0.47, 1);
@@ -43,12 +49,11 @@ margin-top:20px;
   font-family:'Homemade Apple', cursive;
     box-shadow: 0 15px 15px pink;
     transform: translateX(0, -5px);
-    background-color:rgb(63,81,181)  ;
+    background-color:rgb(233,78,84)  ;
     font-size:18px;
-  color:hotpink ;
-  border: 2px groove;
-  border-color:pink;
-  border-radius: 10px;
+  color:white ;
+  border: 2px solid;
+  border-color:white;
   }
 `
 
@@ -68,6 +73,7 @@ font-size:14px;
 `
 const Image=styled.img`
 background:white;
+background-size:cover;
 border-color:rgb(255,248,232);
 width:wrap-content;
 height:100%;
@@ -80,6 +86,20 @@ function Association({association}) {
   const openPost = () => history.push(`/Listeassociation/${association._id}`);
   const user = JSON.parse(localStorage.getItem('profile'));
   const history=useHistory();
+  const [likesASS, setLikesASS] = useState(association?.likesASS);
+  const dispatch = useDispatch();
+
+  const handleLike = async () => {
+    dispatch(likePostASS(association._id));
+
+    if (association.likes.find((like) => like === (user?.result?.googleId || user?.result?._id))) {
+      setLikesASS(association.likesASS.filter((id) => id !== (user?.result?.googleId || user?.result?._id)));
+    } else {
+      setLikesASS([...association.likesASS, user?.result?.googleId || user?.result?._id]);
+    }
+  };
+  
+    
 
     return (
       <>
@@ -96,9 +116,10 @@ function Association({association}) {
           
               
                 
-             <Avatar style={{height:"150px",width:"150px",marginLeft:"42px",border:"solid 2px ",fontSize:"28px"}} > <Image src={association.Photo}/>{association.Nom.charAt(0)} {association.Nom.charAt(1)}</Avatar> 
+             <Avatar style={{height:"150px",width:"150px",marginLeft:"42px",border:"solid 2px ",fontSize:"28px"}} > <Image src={association.Photo}/></Avatar> 
                 <Title>{association.Nom}</Title>
-                <Description> {association.Nom} est une association creer par {association.createur} au gouvernorat de {association.Gouvernorat} situe a {association.ville} l'association est active au domaine(s) de(s){association.categorie} et vise a {association.description} </Description>
+                <Description> {association.Nom} est une association creer par  
+{association.Noma} {association.Prenom}  au gouvernorat de {association.Gouvernorat} situe a {association.ville} l'association est active au domaine(s) de(s){association.categorie} et vise a {association.description} </Description>
                 
                 
             </Container>

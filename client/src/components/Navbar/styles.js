@@ -10,7 +10,7 @@ export default makeStyles((theme) =>
     marginLeft:"-67px",
     height:"63px",
     width:"112%",
-  
+  backgroundColor:"black",
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -21,7 +21,7 @@ export default makeStyles((theme) =>
 
   },
   heading: {
-    backgroundColor: 'grey',
+    backgroundColor: 'black',
     color:"white",
     marginLeft:"-10px",
     textDecoration: 'none',
@@ -31,17 +31,19 @@ export default makeStyles((theme) =>
     fontFamily:"'Homemade Apple', cursive;",
     fontSize:"30px",
     "&:hover" :{
-      color:"black",
-      borderRadius:"15px",
+      color:"rgb(233,78,84)",
+      
     }
   },
  noor:{
 color:"black",
-backgroundColor:"#FF69B4",
+backgroundColor:"white",
+
 "&:hover" :{
-  color:"white",
-  borderRadius:"15px"
-}
+  color:"black",
+  borderRadius:"1px"
+},
+
  },
   toolbar: {
     display: 'flex',
@@ -58,7 +60,7 @@ backgroundColor:"#FF69B4",
   add:{
     
 marginLeft:'15px',
-color:"black",
+color:"rgb(233,85,79)",
 textDecoration:"underline",
 fontSize:"20px",
 fontFamily:"'Brush Script MT'",
@@ -75,7 +77,7 @@ transform: "translateX(0px) scale(1)",
   textShadow: "pink -2px 1px 1px",
   fontSize:"25px",
 fontFamily:"Brush Script MT",
-  color:"black",
+  color:"rgb(233,85,79)",
 overflow: "hidden",
 
 content: "attr(alt)",
@@ -105,7 +107,7 @@ zIndex:"0"
     color: theme.palette.getContrastText(deepPurple[500]),
     fontFamily:"'Homemade Apple', cursive;",
     backgroundColor: deepPurple[500],
-    
+    marginLeft:"95px",
   },
   khalil:{
     backgroundColor:"rgb(63,180,192)",

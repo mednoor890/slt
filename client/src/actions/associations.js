@@ -1,5 +1,5 @@
 import * as api from "../api/index.js"
-import { FETCH_ASS,CREATEASS,FETCH_As,fetchPostsAS,LIKEASS} from '../constants/actionTypes';
+import { FETCH_ASS,CREATEASS,FETCH_As,LIKEASS,COMMENT} from '../constants/actionTypes';
 
 export const getPostAs =(id) => async (dispatch)=>{
     try {
@@ -18,8 +18,17 @@ try {
 } catch (error) {
     console.log(error.message)
 }
+}
+export const getAssocBySearch =(searchQuery) => async (dispatch) => {
+try {
+  const {data:{data}} = await api.fetchAssocBySearch()
+  console.log(data)
+} catch (error) {
+  console.log(error)
+}
 
 }
+
 export const createPostASS =(newPostASS)=> async (dispatch)=>{
 try {
   const {data} =await api.createPostASS(newPostASS)  
@@ -31,7 +40,17 @@ try {
 
 
 }
+export const commentPost = (value, id) => async (dispatch) => {
+  try {
+    const { data } = await api.comment(value, id);
 
+    dispatch({ type: COMMENT, payload: data });
+
+    return data.comments;
+  } catch (error) {
+    console.log(error);
+  }
+};
 export const likePostASS = (id) => async (dispatch) => {
     const user = JSON.parse(localStorage.getItem('profile'));
   

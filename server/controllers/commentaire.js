@@ -1,4 +1,4 @@
-import express from "express"
+/*import express from "express"
 import Avis from '../models/avis.js'
 import PostMessage from '../models/activite.js'
 import mongoose from 'mongoose'
@@ -23,9 +23,7 @@ export const createComment = async (req,res)=>{
 }
 export default router;
 
-
-
-/*const { id } =req.params.id;
+const { id } =req.params.id;
 const userId =req.user.id;
 const post=await PostMessage.findById(id)
 const user = await UserModal.findById(userId)

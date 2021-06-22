@@ -1,8 +1,8 @@
 import mongoose from "mongoose"
 const userSchema =mongoose.Schema({
 
-    Nom:{type:String, required :false ,unique:false},
-    Prenom:{type:String, required :false,unique:false },
+    Nom:{type:String, required :true ,unique:false},
+    Prenom:{type:String, required :true,unique:false },
     Age: {type:Number,
         maximum:120,
         minimum:6

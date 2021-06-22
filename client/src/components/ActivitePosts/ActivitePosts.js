@@ -7,7 +7,7 @@ import ActivitePost from './ActivitePost/ActivitePost';
 
 
 const ActivitePosts = ({setCurrentId}) => {
-  const {posts,auth} = useSelector((state) => state);//useSelector accesses to store and more precisely the state 
+  const posts= useSelector((state) => state.posts);//useSelector accesses to store and more precisely the state 
   
 return(
   !posts.length ? <CircularProgress /> :(

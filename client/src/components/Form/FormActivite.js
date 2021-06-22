@@ -16,6 +16,7 @@ position:relative;
 display:flex;
 justify-content:center;
 align-items:center;
+
 `
 const Title=styled.h3`
 color:black;
@@ -172,7 +173,7 @@ function FormActivite({ currentId, setCurrentId }){
         const handleSubmit1 = async (e) => {
             e.preventDefault();
             //const isValid=formValidation()
-              dispatch(createPost({...postData,name: user?.result?.Nom ,Avatar: user.result?.selectedFile}, history) );
+              dispatch(createPost({...postData,name: user?.result?.Nom ,Avatar: user.result?.selectedFile, prenom: user.result?.Prenom}) );
           };
 
          const notify=()=>{

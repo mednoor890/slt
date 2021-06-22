@@ -12,21 +12,23 @@ API.interceptors.request.use((req) => {
 //activite requests 
 
 export const fetchPosts = () => API.get('/activite');
-export const fetchPostsBySearch = (searchQuery) => API.get(`/activite/search?searchQuery=${searchQuery.Search|| 'none'}&isAssociation=${searchQuery.Filter}`);
+export const fetchPostsBySearch = (searchQuery) => API.get(`/activite/search?Gouvernorat=${searchQuery.Search|| 'none'}&isAssociation=${searchQuery.Filter}`);
 export const createPost = (newPost) => API.post('/activite', newPost);
 export const likePost = (id) => API.patch(`/activite/${id}/likePost`);
 export const deletePost = (id) => API.delete(`/activite/${id}`);
-
-export const createComment=(newCommentaire)=>API.post(`/comment`,newCommentaire);
+export const fetchPostsByCreator = (name) => API.get(`/activite/createur?name=${name}`);
+export const commentPost = (value, id) => API.post(`/activite/${id}/commentPost`, { value });
 //requests of auth
 export const signIn = (formData) => API.post('/user/signin', formData);
 export const signUp = (formData) => API.post('/user/signup', formData)
 
 // requests of association
 export const createPostASS = (newPostASS) => API.post('/association', newPostASS);
+export const fetchAssocBySearch =(searchQuery) => API.get(`/association/search?searchQuery=${searchQuery.Rechercher || 'none'}`)
 export const fetchPostsASS= () => API.get('/association');
 export const fetchPostsAS= (id) => API.get(`/association/${id}`);
 export const likePostASS = (id) => API.patch(`/association/${id}/likePostASS`)
+export const comment = (value, id) => API.post(`/association/${id}/commentAss`, { value });
 
 //export const updatePost = (id, updatedPost) => API.patch(`/posts/${id}`, updatedPost);
 //export const deletePost = (id) => API.delete(`/posts/${id}`);

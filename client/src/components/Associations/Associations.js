@@ -17,23 +17,14 @@ margin-right:20px;
 function Associations({setCurrentId}) {
     const associations= useSelector((state) => state.associations)
     return (
-      
       ! associations.length ? <CircularProgress /> :(
 <Grid container alignItems="stretch" spacing={10}>
  {associations.map((association)=>(
  <Grid key={association._id} item xs={6}   >
- 
 <Association association={association}  setCurrentId={setCurrentId}/>
 </Grid>
-
 ))}
-    
 </Grid>    
-
-
-
-
-
 ))
 }
 

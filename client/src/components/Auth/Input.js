@@ -7,9 +7,11 @@ const Inputa = styled.input`
   font-size: 18px;
   color:black;
   padding: 10px;
-  margin-left:10px;
+  margin-left:7px;
+
   width:400px;
   background: whitesmoke;
+  opacity:0.8;
   border: none;
   font-family:'Courier New';
   border-radius: 3px;

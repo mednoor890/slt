@@ -5,7 +5,6 @@ import cors from 'cors'
 import userRoutes from './routers/user.js'
 import activiteRoutes from './routers/activite.js'
 import associationRoutes from './routers/association.js'
-import commentaireRoutes from './routers/commentaire.js'
 
 const app = express()
 app.use(bodyParser.json({limit:'30mb',extended :true}))
@@ -21,7 +20,7 @@ connection.once('open',function(){
 app.use('/user',userRoutes)
 app.use("/activite",activiteRoutes);
 app.use("/association",associationRoutes)
-app.use("/comment",commentaireRoutes)
+
 
 
 

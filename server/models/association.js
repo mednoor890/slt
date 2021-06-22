@@ -4,7 +4,10 @@ const associationSchema = mongoose.Schema({
     Nom:String,
     categorie:[String],
     description: String,
-    createur:{type:[mongoose.Schema.Types.ObjectId],ref:"User"},
+    createur:String,
+    Noma:String,
+    Prenom:String,
+    //createur:{type:[mongoose.Schema.Types.ObjectId],ref:"User"},
     email: [String],
     Gouvernorat :[String], /* gouvernorat*/
     ville :String,
@@ -12,8 +15,7 @@ const associationSchema = mongoose.Schema({
         type: Date,
         default: new Date(),
     },
-    commentaire:{type:String,
-    default:''},
+    comments: { type: [String], default: [] },
     Datederoulement:{
         type: Date,
         default: new Date(),
